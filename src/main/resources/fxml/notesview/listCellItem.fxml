@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<HBox fx:id="hBox" spacing="5.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <MaterialDesignIconView fx:id="icon" glyphName="FOLDER_OUTLINE" size="18" strokeType="OUTSIDE"
+                                strokeWidth="0.0"/>
+        <Label fx:id="nameLabel"/>
+        <Label fx:id="textLabel" textFill="#aeaeae">
+            <HBox.margin>
+                <Insets left="10.0"/>
+            </HBox.margin>
+        </Label>
+    </children>
+</HBox>

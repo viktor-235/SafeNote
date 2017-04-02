@@ -1,0 +1,38 @@
+{
+  "type": "CompositeNote",
+  "name": "Root",
+  "childNotes": [
+    {
+      "name": "Composite Note 1",
+      "childNotes": [
+        {
+          "type": "CompositeNote",
+          "name": "Composite Note 3",
+          "childNotes": [
+            {
+              "name": "Note 4",
+              "text": "Note content 4",
+              "type": "DefaultNote"
+            }
+          ]
+        },
+        {
+          "name": "Note 2",
+          "text": "Note content 2",
+          "type": "DefaultNote"
+        },
+        {
+          "name": "Note 3",
+          "text": "Note content 3",
+          "type": "DefaultNote"
+        }
+      ],
+      "type": "CompositeNote"
+    },
+    {
+      "name": "Note 1",
+      "text": "Note content 1",
+      "type": "DefaultNote"
+    }
+  ]
+}
