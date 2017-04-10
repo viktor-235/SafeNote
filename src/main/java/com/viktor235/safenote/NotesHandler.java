@@ -58,6 +58,29 @@ public class NotesHandler {
         }
     }
 
+    public Note findNote(String name, boolean excludeComposite) {
+        return findNote(notesTree, name, excludeComposite);
+    }
+
+    private Note findNote(Note note, String name, boolean excludeComposite) {
+        if (note instanceof DefaultNote) {
+            if (note.getName().equals(name))
+                return note;
+            else
+                return null;
+        }
+        if (note instanceof CompositeNote) {
+            if (!excludeComposite && note.getName().equals(name))
+                return note;
+            for (Note subNote : ((CompositeNote) note).getChilds()) {
+                Note result = findNote(subNote, name, excludeComposite);
+                if (result != null)
+                    return result;
+            }
+        }
+        return null;
+    }
+
     private Note generateDefaultNotes() {
         CompositeNote rootNote = new CompositeNote("Root");
 
