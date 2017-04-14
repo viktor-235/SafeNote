@@ -11,7 +11,7 @@
     <right>
         <HBox BorderPane.alignment="CENTER">
             <children>
-                <Button mnemonicParsing="false" onAction="#handleCopy" style="-fx-padding: opx;">
+                <Button mnemonicParsing="false" onAction="#handleCopy" style="-fx-padding: 0px;">
                     <graphic>
                         <MaterialDesignIconView glyphName="CONTENT_COPY" size="18" strokeType="OUTSIDE" strokeWidth="0.0" />
                     </graphic>
