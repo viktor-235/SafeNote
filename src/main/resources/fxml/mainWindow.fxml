@@ -35,11 +35,11 @@
         </HBox>
         <HBox layoutX="25.0" layoutY="25.0" spacing="10.0" GridPane.columnIndex="1">
             <children>
-                <!--<Button mnemonicParsing="false" onAction="#clickSave">-->
-                <!--<graphic>-->
-                <!--<MaterialDesignIconView glyphName="CHECK" size="20" strokeType="OUTSIDE" strokeWidth="0.0"/>-->
-                <!--</graphic>-->
-                <!--</Button>-->
+                <Button mnemonicParsing="false" onAction="#clickSave">
+                <graphic>
+                <MaterialDesignIconView glyphName="CHECK" size="20" strokeType="OUTSIDE" strokeWidth="0.0"/>
+                </graphic>
+                </Button>
             </children>
         </HBox>
     </children>

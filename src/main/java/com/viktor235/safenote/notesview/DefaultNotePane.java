@@ -1,5 +1,6 @@
 package com.viktor235.safenote.notesview;
 
+import com.viktor235.safenote.composite.DefaultNote;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
@@ -13,7 +14,10 @@ public class DefaultNotePane {
     @FXML
     private TextArea textArea;
 
-    public DefaultNotePane() {
+    private DefaultNote defaultNote;
+
+    public DefaultNotePane(DefaultNote defaultNote) {
+        this.defaultNote = defaultNote;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/notesview/defaultNotePane.fxml"));
         fxmlLoader.setController(this);
         try {
@@ -29,5 +33,14 @@ public class DefaultNotePane {
 
     public Pane getPane() {
         return pane;
+    }
+
+    public DefaultNote getDefaultNote() {
+        return defaultNote;
+    }
+
+    public void updateNote() {
+//        defaultNote.setName();
+        defaultNote.setText(textArea.getText());
     }
 }

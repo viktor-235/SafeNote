@@ -34,6 +34,7 @@ public class MainWindowController extends Stage implements Initializable {
 
     private NotesHandler notesHandler;
     private CompositeNote currentCompositeNote;
+    private DefaultNotePane currentNotePane;
 
     public MainWindowController(NotesHandler notesHandler) {
         this.notesHandler = notesHandler;
@@ -85,11 +86,13 @@ public class MainWindowController extends Stage implements Initializable {
             public void changed(ObservableValue<? extends Note> observable,
                                 Note oldValue, Note newValue) {
                 if (newValue instanceof DefaultNote) {
-                    DefaultNotePane defaultNotePane = new DefaultNotePane();
-                    defaultNotePane.setContent(((DefaultNote) newValue).getText());
-                    notePane.getChildren().add(defaultNotePane.getPane());
-                } else
+                    currentNotePane  = new DefaultNotePane((DefaultNote) newValue);
+                    currentNotePane.setContent(((DefaultNote) newValue).getText());
+                    notePane.getChildren().add(currentNotePane.getPane());
+                } else {
                     notePane.getChildren().clear();
+                    currentNotePane = null;
+                }
             }
         });
     }
@@ -99,6 +102,10 @@ public class MainWindowController extends Stage implements Initializable {
     }
 
     public void clickSave(ActionEvent actionEvent) {
-
+        if (currentNotePane != null) {
+            currentNotePane.updateNote();
+            notesHandler.saveNotes();
+            setListView(currentCompositeNote);
+        }
     }
 }

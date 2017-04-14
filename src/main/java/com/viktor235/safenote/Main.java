@@ -38,17 +38,11 @@ public class Main extends Application {
                 String noteContent = ((DefaultNote) foundNote).getText();
                 System.out.println(noteContent);
                 if (appArgs.isToClipboard())
-                    copyToClipboard(noteContent);
+                    Utils.copyToClipboard(noteContent);
             }
             return;
         }
 
         launch(args);
-    }
-
-    private static void copyToClipboard(String text) {
-        StringSelection selection = new StringSelection(text);
-        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        clipboard.setContents(selection, selection);
     }
 }

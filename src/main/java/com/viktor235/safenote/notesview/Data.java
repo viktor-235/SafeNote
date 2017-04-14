@@ -1,16 +1,19 @@
 package com.viktor235.safenote.notesview;
 
+import com.viktor235.safenote.Utils;
+import com.viktor235.safenote.composite.DefaultNote;
+import com.viktor235.safenote.composite.Note;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 
 public class Data {
     @FXML
-    private HBox hBox;
+    private BorderPane pane;
     @FXML
     private Label nameLabel;
     @FXML
@@ -18,7 +21,10 @@ public class Data {
     @FXML
     private MaterialDesignIconView icon;
 
-    public Data() {
+    private Note note;
+
+    public Data(Note note) {
+        this.note = note;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/notesview/listCellItem.fxml"));
         fxmlLoader.setController(this);
         try {
@@ -26,21 +32,23 @@ public class Data {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        updateView();
     }
 
-    public void setText(String text) {
-        textLabel.setText(text);
+    public BorderPane getBox() {
+        return pane;
     }
 
-    public void setName(String name) {
-        nameLabel.setText(name);
+    public void updateView() {
+        nameLabel.setText(note.getName());
+        if (note instanceof DefaultNote) {
+            textLabel.setText(((DefaultNote) note).getText());
+            icon.setGlyphName("FILE_DOCUMENT");
+        }
     }
 
-    public void setIconName(String iconName) {
-        icon.setGlyphName(iconName);
-    }
-
-    public HBox getBox() {
-        return hBox;
+    public void handleCopy() {
+        if (note instanceof DefaultNote)
+            Utils.copyToClipboard(((DefaultNote) note).getText());
     }
 }

@@ -9,12 +9,7 @@ public class ListViewCell extends ListCell<Note> {
     protected void updateItem(Note item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null) {
-            Data data = new Data();
-            data.setName(item.getName());
-            if (item instanceof DefaultNote) {
-                data.setText(((DefaultNote) item).getText());
-                data.setIconName("FILE_DOCUMENT");
-            }
+            Data data = new Data(item);
             setGraphic(data.getBox());
         }
     }
