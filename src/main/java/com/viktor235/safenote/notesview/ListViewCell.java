@@ -1,6 +1,5 @@
 package com.viktor235.safenote.notesview;
 
-import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
 import javafx.scene.control.ListCell;
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--<VBox fx:id="pane" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"-->
+<!--minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: grey;"-->
+<!--spacing="8.0" xmlns="http://javafx.com/javafx/8">-->
+<!--<children>-->
+<!--<Label fx:id="updateStatus" text="Checking for Updates..."/>-->
+<!--<ProgressBar fx:id="updateProgress" prefWidth="200.0" progress="0.0"/>-->
+<!--<Button fx:id="updateAction" mnemonicParsing="false" text="Get it!"/>-->
+<!--</children>-->
+<!--<padding>-->
+<!--<Insets bottom="16.0" left="16.0" right="16.0" top="16.0"/>-->
+<!--</padding>-->
+<!--</VBox>-->
+
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<StackPane fx:id="pane" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+           minWidth="-Infinity" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.112"
+           xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="10.0">
+            <children>
+                <MaterialIconView fill="#aaaaaa" glyphName="TOUCH_APP" size="96" strokeType="OUTSIDE" strokeWidth="0.0">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </MaterialIconView>
+                <!--<MaterialIconView fill="#aaaaaa" glyphName="LIST" size="96" strokeType="OUTSIDE" strokeWidth="0.0" />-->
+                <!--<MaterialIconView fill="#aaaaaa" glyphName="HOME" size="96" strokeType="OUTSIDE" strokeWidth="0.0" />-->
+                <!--<MaterialIconView fill="#aaaaaa" glyphName="INFO" size="96" strokeType="OUTSIDE" strokeWidth="0.0" />-->
+                <!--<MaterialIconView fill="#aaaaaa" glyphName="NOTE_ADD" size="96" strokeType="OUTSIDE" strokeWidth="0.0" />-->
+                <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Please select note"
+                       textAlignment="CENTER" textFill="#aaaaaa">
+                    <font>
+                        <Font size="18.0"/>
+                    </font>
+                </Label>
+            </children>
+        </VBox>
+    </children>
+</StackPane>

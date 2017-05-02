@@ -7,7 +7,8 @@ import com.viktor235.safenote.json.Convertable;
  */
 public class Note implements Convertable {
     private String name;
-    protected transient Note parent;
+    protected transient CompositeNote parent;
+    private boolean encrypted = false;
 
     public Note(String name) {
         this.name = name;
@@ -18,11 +19,11 @@ public class Note implements Convertable {
         return this.getClass().getSimpleName();
     }
 
-    public Note getParent() {
+    public CompositeNote getParent() {
         return parent;
     }
 
-    public void setParent(Note parent) {
+    public void setParent(CompositeNote parent) {
         this.parent = parent;
     }
 
@@ -32,5 +33,13 @@ public class Note implements Convertable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isEncrypted() {
+        return encrypted;
+    }
+
+    public void setEncrypted(boolean encrypted) {
+        this.encrypted = encrypted;
     }
 }

@@ -1,0 +1,13 @@
+.button {
+	-fx-background-color: transparent;
+	-fx-padding: 0px;
+}
+
+.button:hover,
+.button:focused {
+	-fx-background-color: #00000010;
+}
+
+.button:pressed {
+	-fx-background-color: #00000020;
+}

@@ -4,6 +4,7 @@ import com.viktor235.safenote.composite.DefaultNote;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.io.IOException;
 public class DefaultNotePane {
     @FXML
     private Pane pane;
+    @FXML
+    private TextField nameField;
     @FXML
     private TextArea textArea;
 
@@ -25,6 +28,10 @@ public class DefaultNotePane {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void setName(String name) {
+        nameField.setText(name);
     }
 
     public void setContent(String text) {

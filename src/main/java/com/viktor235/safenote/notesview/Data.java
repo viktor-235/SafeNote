@@ -3,9 +3,10 @@ package com.viktor235.safenote.notesview;
 import com.viktor235.safenote.Utils;
 import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
-import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
@@ -19,7 +20,9 @@ public class Data {
     @FXML
     private Label textLabel;
     @FXML
-    private MaterialDesignIconView icon;
+    private MaterialIconView icon;
+    @FXML
+    private Button copyButton;
 
     private Note note;
 
@@ -43,7 +46,9 @@ public class Data {
         nameLabel.setText(note.getName());
         if (note instanceof DefaultNote) {
             textLabel.setText(((DefaultNote) note).getText());
-            icon.setGlyphName("FILE_DOCUMENT");
+            icon.setGlyphName("ASSIGNMENT");
+        } else {
+            copyButton.setVisible(false);
         }
     }
 

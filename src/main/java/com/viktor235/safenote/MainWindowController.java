@@ -4,6 +4,7 @@ import com.viktor235.safenote.composite.CompositeNote;
 import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
 import com.viktor235.safenote.notesview.DefaultNotePane;
+import com.viktor235.safenote.notesview.EmptyNotePane;
 import com.viktor235.safenote.notesview.ListViewCell;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,7 +18,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -28,16 +31,23 @@ import java.util.ResourceBundle;
 
 public class MainWindowController extends Stage implements Initializable {
     @FXML
+    private GridPane gridPane;
+    @FXML
     private ListView<Note> listView;
     @FXML
     private Pane notePane;
 
     private NotesHandler notesHandler;
-    private CompositeNote currentCompositeNote;
+    private CompositeNote currentParentNote;
+    private Note currentNote;
     private DefaultNotePane currentNotePane;
 
     public MainWindowController(NotesHandler notesHandler) {
         this.notesHandler = notesHandler;
+
+        this.getIcons().add(new Image("images/ic_assignment_black_48dp_1x.png"));
+        this.getIcons().add(new Image("images/ic_assignment_black_48dp_2x.png"));
+        this.getIcons().add(new Image("images/ic_assignment_black_48dp_4x.png"));
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainWindow.fxml"));
         fxmlLoader.setController(this);
@@ -58,7 +68,7 @@ public class MainWindowController extends Stage implements Initializable {
         CompositeNote compositeNote;
         if (note != null && note instanceof CompositeNote) {
             compositeNote = (CompositeNote) note;
-            currentCompositeNote = compositeNote;
+            currentParentNote = compositeNote;
         } else
             return;
         ObservableList observableList = FXCollections.observableArrayList();
@@ -85,27 +95,36 @@ public class MainWindowController extends Stage implements Initializable {
         listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Note>() {
             public void changed(ObservableValue<? extends Note> observable,
                                 Note oldValue, Note newValue) {
+                currentNote = newValue;
+                notePane.getChildren().clear();
                 if (newValue instanceof DefaultNote) {
-                    currentNotePane  = new DefaultNotePane((DefaultNote) newValue);
+                    currentNotePane = new DefaultNotePane((DefaultNote) newValue);
                     currentNotePane.setContent(((DefaultNote) newValue).getText());
                     notePane.getChildren().add(currentNotePane.getPane());
                 } else {
-                    notePane.getChildren().clear();
                     currentNotePane = null;
+                    EmptyNotePane pane = new EmptyNotePane();
+                    notePane.getChildren().add(pane.getPane());
                 }
             }
         });
     }
 
-    public void clickBack(ActionEvent actionEvent) {
-        setListView(currentCompositeNote.getParent());
+    public void handleClickBack(ActionEvent actionEvent) {
+        setListView(currentParentNote.getParent());
     }
 
-    public void clickSave(ActionEvent actionEvent) {
+    public void handleClickSave(ActionEvent actionEvent) {
         if (currentNotePane != null) {
             currentNotePane.updateNote();
             notesHandler.saveNotes();
-            setListView(currentCompositeNote);
+            setListView(currentParentNote);
         }
+    }
+
+    public void handleClickDelete(ActionEvent actionEvent) {
+        notesHandler.deleteNote(currentNote);
+        notesHandler.saveNotes();
+        setListView(currentParentNote);
     }
 }

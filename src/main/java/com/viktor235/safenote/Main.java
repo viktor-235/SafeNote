@@ -7,10 +7,6 @@ import com.viktor235.safenote.composite.Note;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-
 public class Main extends Application {
     private static NotesHandler notesHandler;
 
@@ -32,6 +28,7 @@ public class Main extends Application {
         }
 
         notesHandler = new NotesHandler("notes.json");
+
         if (appArgs.getNoteName() != null) {
             Note foundNote = notesHandler.findNote(appArgs.getNoteName(), true);
             if (foundNote != null) {

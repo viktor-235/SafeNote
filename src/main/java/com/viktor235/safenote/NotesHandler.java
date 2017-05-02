@@ -5,6 +5,7 @@ import com.viktor235.safenote.composite.CompositeNote;
 import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
 import com.viktor235.safenote.json.Codec;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.io.*;
 
@@ -15,6 +16,7 @@ public class NotesHandler {
     private String fileName;
     private Note notesTree;
     private Codec<Note> codec;
+    private static BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
 
     public NotesHandler(String fileName) {
         this.fileName = fileName;
@@ -34,10 +36,10 @@ public class NotesHandler {
     private void fillParents(Note notesTree) {
         if (notesTree instanceof CompositeNote)
             for (Note note : ((CompositeNote) notesTree).getChilds())
-                fillParents(note, notesTree);
+                fillParents(note, (CompositeNote) notesTree);
     }
 
-    private void fillParents(Note note, Note parent) {
+    private void fillParents(Note note, CompositeNote parent) {
         note.setParent(parent);
         fillParents(note);
     }
@@ -81,11 +83,36 @@ public class NotesHandler {
         return null;
     }
 
-    private Note generateDefaultNotes() {
-        CompositeNote rootNote = new CompositeNote("Root");
+    public static DefaultNote decryptNote(DefaultNote note, String password) {
+        textEncryptor.setPassword(password);
+        note.setEncrypted(false);
+        note.setText(textEncryptor.decrypt(note.getText()));
+        return note;
+    }
 
-        DefaultNote defaultNote = new DefaultNote("DefaultNote");
-        defaultNote.setText("This is DefaultNote");
+    public static DefaultNote encryptNote(DefaultNote note, String password) {
+        textEncryptor.setPassword(password);
+        note.setEncrypted(true);
+        note.setText(textEncryptor.encrypt(note.getText()));
+        return note;
+    }
+
+    public static String decryptNoteText(DefaultNote note, String password) {
+        textEncryptor.setPassword(password);
+        return textEncryptor.decrypt(note.getText());
+    }
+
+    public void deleteNote(Note note) {
+        CompositeNote parent = note.getParent();
+        if (parent != null)
+            parent.getChilds().remove(note);
+    }
+
+    private Note generateDefaultNotes() {
+        CompositeNote rootNote = new CompositeNote("RootNote");
+
+        DefaultNote defaultNote = new DefaultNote("Default Note");
+        defaultNote.setText("This is Default Note");
         rootNote.add(defaultNote);
 
         return rootNote;
@@ -100,6 +127,8 @@ public class NotesHandler {
         defaultNote3.setText("Text");
         DefaultNote defaultNote4 = new DefaultNote("DefaultNote4");
         defaultNote4.setText("Text");
+
+        defaultNote4 = encryptNote(defaultNote4, "PASS");
 
         CompositeNote compositeNote1 = new CompositeNote("Root");
         CompositeNote compositeNote2 = new CompositeNote("CompositeNote2");
@@ -119,5 +148,9 @@ public class NotesHandler {
         compositeNote1.add(defaultNote5);
 
         return compositeNote1;
+    }
+
+    public static Note generateSimpleNote() {
+        return new DefaultNote("DefaultNote1");
     }
 }

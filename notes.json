@@ -1,38 +1,38 @@
 {
-  "type": "CompositeNote",
-  "name": "Root",
   "childNotes": [
     {
-      "name": "Composite Note 1",
       "childNotes": [
         {
-          "type": "CompositeNote",
-          "name": "Composite Note 3",
           "childNotes": [
             {
+              "text": "Note content 4!",
               "name": "Note 4",
-              "text": "Note content 4",
+              "encrypted": false,
               "type": "DefaultNote"
             }
-          ]
+          ],
+          "name": "Composite Note 3",
+          "encrypted": false,
+          "type": "CompositeNote"
         },
         {
-          "name": "Note 2",
           "text": "Note content 2",
+          "name": "Note 2",
+          "encrypted": false,
           "type": "DefaultNote"
         },
         {
-          "name": "Note 3",
           "text": "Note content 3",
+          "name": "Note 3",
+          "encrypted": false,
           "type": "DefaultNote"
         }
       ],
+      "name": "Composite Note 1",
+      "encrypted": false,
       "type": "CompositeNote"
-    },
-    {
-      "name": "Note 1",
-      "text": "Note content 1",
-      "type": "DefaultNote"
     }
-  ]
+  ],
+  "name": "Root",
+  "encrypted": false
 }
