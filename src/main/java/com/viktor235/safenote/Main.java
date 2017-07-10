@@ -6,6 +6,7 @@ import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 
 public class Main extends Application {
     private static NotesHandler notesHandler;
@@ -32,8 +33,22 @@ public class Main extends Application {
         if (appArgs.getNoteName() != null) {
             Note foundNote = notesHandler.findNote(appArgs.getNoteName(), true);
             if (foundNote != null) {
-                String noteContent = ((DefaultNote) foundNote).getText();
-                System.out.println(noteContent);
+                DefaultNote foundDefaultNote = (DefaultNote) foundNote;
+                String noteContent = null;
+                if (foundDefaultNote.isEncrypted()) {
+                    JCommander.getConsole().print("Enter the password for \"" + foundNote.getName() + "\":");
+                    try {
+                        noteContent = NotesHandler.decryptNoteText(foundDefaultNote, JCommander.getConsole().readPassword(false));
+                    } catch (EncryptionOperationNotPossibleException e) {
+                        JCommander.getConsole().println("Incorrect password!");
+                        System.exit(0);
+                    }
+                } else
+                    noteContent = (foundDefaultNote).getText();
+
+                if (!appArgs.isToClipboard() || !foundDefaultNote.isEncrypted())
+                    JCommander.getConsole().println(noteContent);
+
                 if (appArgs.isToClipboard())
                     Utils.copyToClipboard(noteContent);
             }

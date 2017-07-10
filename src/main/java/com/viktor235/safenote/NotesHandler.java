@@ -5,6 +5,7 @@ import com.viktor235.safenote.composite.CompositeNote;
 import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
 import com.viktor235.safenote.json.Codec;
+import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.io.*;
@@ -83,7 +84,7 @@ public class NotesHandler {
         return null;
     }
 
-    public static DefaultNote decryptNote(DefaultNote note, String password) {
+    public static DefaultNote decryptNote(DefaultNote note, String password) throws EncryptionOperationNotPossibleException {
         textEncryptor.setPassword(password);
         note.setEncrypted(false);
         note.setText(textEncryptor.decrypt(note.getText()));
@@ -97,8 +98,13 @@ public class NotesHandler {
         return note;
     }
 
-    public static String decryptNoteText(DefaultNote note, String password) {
+    public static String decryptNoteText(DefaultNote note, String password) throws EncryptionOperationNotPossibleException {
         textEncryptor.setPassword(password);
+        return textEncryptor.decrypt(note.getText());
+    }
+
+    public static String decryptNoteText(DefaultNote note, char[] password) throws EncryptionOperationNotPossibleException {
+        textEncryptor.setPasswordCharArray(password);
         return textEncryptor.decrypt(note.getText());
     }
 
