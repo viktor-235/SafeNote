@@ -24,7 +24,7 @@ public class Main extends Application {
         jCommander.setProgramName("SafeNote");
         if (appArgs.isHelp()) {
             jCommander.usage();
-            return;
+            System.exit(0);
         }
 
         notesHandler = new NotesHandler("notes.json");
@@ -37,7 +37,7 @@ public class Main extends Application {
                 if (appArgs.isToClipboard())
                     Utils.copyToClipboard(noteContent);
             }
-            return;
+            System.exit(0);
         }
 
         launch(args);
