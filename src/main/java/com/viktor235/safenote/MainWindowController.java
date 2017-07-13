@@ -52,6 +52,8 @@ public class MainWindowController extends Stage implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/mainWindow.fxml"));
         fxmlLoader.setController(this);
         setTitle("Safe Note");
+        setWidth(600);
+        setHeight(400);
         try {
             setScene(new Scene(fxmlLoader.load()));
         } catch (IOException e) {
@@ -93,8 +95,7 @@ public class MainWindowController extends Stage implements Initializable {
         });
 
         listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Note>() {
-            public void changed(ObservableValue<? extends Note> observable,
-                                Note oldValue, Note newValue) {
+            public void changed(ObservableValue<? extends Note> observable, Note oldValue, Note newValue) {
                 currentNote = newValue;
                 notePane.getChildren().clear();
                 if (newValue instanceof DefaultNote) {
@@ -112,6 +113,18 @@ public class MainWindowController extends Stage implements Initializable {
 
     public void handleClickBack(ActionEvent actionEvent) {
         setListView(currentParentNote.getParent());
+    }
+
+    public void handleAddNote(ActionEvent actionEvent) {
+        currentParentNote.add(new DefaultNote(""));
+        notesHandler.saveNotes();
+        setListView(currentParentNote);
+    }
+
+    public void handleAddCompositeNote(ActionEvent actionEvent) {
+        currentParentNote.add(new CompositeNote(""));
+        notesHandler.saveNotes();
+        setListView(currentParentNote);
     }
 
     public void handleClickSave(ActionEvent actionEvent) {

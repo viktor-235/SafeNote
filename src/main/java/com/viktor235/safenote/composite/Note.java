@@ -5,7 +5,7 @@ import com.viktor235.safenote.json.Convertable;
 /**
  * Created by User on 02.04.2017.
  */
-public class Note implements Convertable {
+public abstract class Note implements Convertable {
     private String name;
     protected transient CompositeNote parent;
     private boolean encrypted = false;

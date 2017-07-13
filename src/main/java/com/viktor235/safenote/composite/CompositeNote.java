@@ -22,7 +22,7 @@ public class CompositeNote extends Note {
     }
 
     public void add(Note note) {
-        setParent(this);
+        note.setParent(this);
         childNotes.add(note);
     }
 
