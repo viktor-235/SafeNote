@@ -47,7 +47,7 @@ public class DefaultNotePane {
     }
 
     public void updateNote() {
-//        defaultNote.setName();
+        defaultNote.setName(nameField.getText());
         defaultNote.setText(textArea.getText());
     }
 }

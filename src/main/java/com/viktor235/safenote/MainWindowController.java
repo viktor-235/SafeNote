@@ -100,6 +100,7 @@ public class MainWindowController extends Stage implements Initializable {
                 notePane.getChildren().clear();
                 if (newValue instanceof DefaultNote) {
                     currentNotePane = new DefaultNotePane((DefaultNote) newValue);
+                    currentNotePane.setName(newValue.getName());
                     currentNotePane.setContent(((DefaultNote) newValue).getText());
                     notePane.getChildren().add(currentNotePane.getPane());
                 } else {

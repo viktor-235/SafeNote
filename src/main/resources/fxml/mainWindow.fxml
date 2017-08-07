@@ -4,9 +4,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Line?>
 <GridPane fx:id="gridPane" hgap="10.0" style="-fx-background-color: white;" stylesheets="@style.css" vgap="10.0"
-          xmlns="http://javafx.com/javafx/8.0.112-ea"
-          xmlns:fx="http://javafx.com/fxml/1">
+          xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
@@ -17,8 +17,7 @@
     </rowConstraints>
     <children>
         <AnchorPane fx:id="notePane" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
-                    GridPane.rowIndex="1" GridPane.valignment="CENTER"
-                    GridPane.vgrow="ALWAYS"/>
+                    GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS"/>
         <ListView fx:id="listView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
                   GridPane.rowIndex="1">
             <GridPane.margin>
@@ -62,6 +61,15 @@
                                 <Tooltip text="Add new folder"/>
                             </tooltip>
                         </Button>
+                        <Line endY="30" startY="0" stroke="#0000001a"/>
+                        <Button mnemonicParsing="false" onAction="#handleClickDelete">
+                            <graphic>
+                                <MaterialIconView glyphName="DELETE" size="30" strokeType="OUTSIDE" strokeWidth="0.0"/>
+                            </graphic>
+                            <tooltip>
+                                <Tooltip text="Delete this note/folder"/>
+                            </tooltip>
+                        </Button>
                     </children>
                 </HBox>
             </right>
@@ -70,26 +78,18 @@
             <left>
                 <HBox layoutX="25.0" layoutY="25.0" spacing="10.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#handleClickSave">
-                            <graphic>
-                                <MaterialIconView glyphName="SAVE" size="30" strokeType="OUTSIDE" strokeWidth="0.0"/>
-                            </graphic>
-                            <tooltip>
-                                <Tooltip text="Save changes"/>
-                            </tooltip>
-                        </Button>
                     </children>
                 </HBox>
             </left>
             <right>
                 <HBox layoutX="25.0" layoutY="25.0" spacing="10.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#handleClickDelete">
+                        <Button mnemonicParsing="false" onAction="#handleClickSave">
                             <graphic>
-                                <MaterialIconView glyphName="DELETE" size="30" strokeType="OUTSIDE" strokeWidth="0.0"/>
+                                <MaterialIconView glyphName="SAVE" size="30" strokeType="OUTSIDE" strokeWidth="0.0"/>
                             </graphic>
                             <tooltip>
-                                <Tooltip text="Delete this note/folder"/>
+                                <Tooltip text="Save changes"/>
                             </tooltip>
                         </Button>
                     </children>
