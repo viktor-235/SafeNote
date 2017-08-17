@@ -27,7 +27,7 @@
             <left>
                 <HBox layoutX="25.0" layoutY="25.0" spacing="10.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#handleClickBack">
+                        <Button mnemonicParsing="false" onAction="#handleBack">
                             <graphic>
                                 <MaterialIconView glyphName="ARROW_BACK" size="30" strokeType="OUTSIDE"
                                                   strokeWidth="0.0"/>
@@ -61,7 +61,7 @@
                             </tooltip>
                         </Button>
                         <Line endY="30" startY="0" stroke="#0000001a"/>
-                        <Button mnemonicParsing="false" onAction="#handleClickDelete">
+                        <Button mnemonicParsing="false" onAction="#handleDelete">
                             <graphic>
                                 <MaterialIconView glyphName="DELETE" size="30" strokeType="OUTSIDE" strokeWidth="0.0"/>
                             </graphic>
@@ -83,7 +83,7 @@
             <right>
                 <HBox layoutX="25.0" layoutY="25.0" spacing="10.0">
                     <children>
-                        <Button mnemonicParsing="false" onAction="#handleClickSave">
+                        <Button mnemonicParsing="false" onAction="#handleSave">
                             <graphic>
                                 <MaterialIconView glyphName="SAVE" size="30" strokeType="OUTSIDE" strokeWidth="0.0"/>
                             </graphic>

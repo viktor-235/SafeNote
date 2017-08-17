@@ -6,12 +6,9 @@ import com.viktor235.safenote.composite.Note;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import javafx.beans.binding.DoubleBinding;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-
-import java.io.IOException;
 
 public class Data {
     @FXML
@@ -29,13 +26,7 @@ public class Data {
 
     public Data(Note note, DoubleBinding paneWidthProperty) {
         this.note = note;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/notesview/listCellItem.fxml"));
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Utils.loadFxml("/fxml/notesview/listCellItem.fxml", this);
         pane.prefWidthProperty().bind(paneWidthProperty);
         nameLabel.maxWidthProperty().bind(paneWidthProperty.add(-70));
         updateView();

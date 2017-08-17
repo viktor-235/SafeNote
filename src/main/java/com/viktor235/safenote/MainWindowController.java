@@ -3,9 +3,8 @@ package com.viktor235.safenote;
 import com.viktor235.safenote.composite.CompositeNote;
 import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
-import com.viktor235.safenote.notesview.DefaultNotePane;
-import com.viktor235.safenote.notesview.EmptyNotePane;
-import com.viktor235.safenote.notesview.ListViewCell;
+import com.viktor235.safenote.delegator.Thingable;
+import com.viktor235.safenote.notesview.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -40,7 +39,7 @@ public class MainWindowController extends Stage implements Initializable {
     private NotesHandler notesHandler;
     private CompositeNote currentParentNote;
     private Note currentNote;
-    private DefaultNotePane currentNotePane;
+    private INotePane currentNotePane;
 
     public MainWindowController(NotesHandler notesHandler) {
         this.notesHandler = notesHandler;
@@ -98,21 +97,36 @@ public class MainWindowController extends Stage implements Initializable {
             public void changed(ObservableValue<? extends Note> observable, Note oldValue, Note newValue) {
                 currentNote = newValue;
                 notePane.getChildren().clear();
+                if (newValue == null)
+                    return;
+                if (newValue.isEncrypted()) {
+                    Thingable thing = new Thingable() {
+                        @Override
+                        public void thing() {
+
+                        }
+                    };
+
+                    currentNotePane = new PasswordPane(newValue, thing);
+                    notePane.getChildren().add(currentNotePane.getPane());
+                    return;
+                }
+
                 if (newValue instanceof DefaultNote) {
-                    currentNotePane = new DefaultNotePane((DefaultNote) newValue);
-                    currentNotePane.setName(newValue.getName());
-                    currentNotePane.setContent(((DefaultNote) newValue).getText());
+                    DefaultNotePane pane = new DefaultNotePane((DefaultNote) newValue);
+                    currentNotePane.setTitle(newValue.getName());
+                    pane.setContent(((DefaultNote) newValue).getText());
+                    currentNotePane = pane;
                     notePane.getChildren().add(currentNotePane.getPane());
                 } else {
-                    currentNotePane = null;
-                    EmptyNotePane pane = new EmptyNotePane();
-                    notePane.getChildren().add(pane.getPane());
+                    currentNotePane = new EmptyNotePane();
+                    notePane.getChildren().add(currentNotePane.getPane());
                 }
             }
         });
     }
 
-    public void handleClickBack(ActionEvent actionEvent) {
+    public void handleBack(ActionEvent actionEvent) {
         setListView(currentParentNote.getParent());
     }
 
@@ -128,15 +142,15 @@ public class MainWindowController extends Stage implements Initializable {
         setListView(currentParentNote);
     }
 
-    public void handleClickSave(ActionEvent actionEvent) {
-        if (currentNotePane != null) {
-            currentNotePane.updateNote();
+    public void handleSave(ActionEvent actionEvent) {
+        if (currentNotePane != null && currentNotePane instanceof DefaultNotePane) {
+            ((DefaultNotePane) currentNotePane).updateNote();
             notesHandler.saveNotes();
             setListView(currentParentNote);
         }
     }
 
-    public void handleClickDelete(ActionEvent actionEvent) {
+    public void handleDelete(ActionEvent actionEvent) {
         notesHandler.deleteNote(currentNote);
         notesHandler.saveNotes();
         setListView(currentParentNote);

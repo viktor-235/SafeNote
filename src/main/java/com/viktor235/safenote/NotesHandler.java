@@ -109,6 +109,8 @@ public class NotesHandler {
     }
 
     public void deleteNote(Note note) {
+        if (note == null)
+            return;
         CompositeNote parent = note.getParent();
         if (parent != null)
             parent.getChilds().remove(note);
