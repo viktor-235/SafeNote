@@ -79,7 +79,7 @@ public class MainWindowController extends Stage implements Initializable {
         listView.setCellFactory(new Callback<ListView<Note>, ListCell<Note>>() {
             @Override
             public ListCell<Note> call(ListView<Note> listView) {
-                ListViewCell cell = new ListViewCell();
+                ListViewCell cell = new ListViewCell(listView.widthProperty().add(-20));
                 cell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {

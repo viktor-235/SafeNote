@@ -4,17 +4,18 @@ import com.viktor235.safenote.Utils;
 import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
+import javafx.beans.binding.DoubleBinding;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
 public class Data {
     @FXML
-    private BorderPane pane;
+    private Pane pane;
     @FXML
     private Label nameLabel;
     @FXML
@@ -26,7 +27,7 @@ public class Data {
 
     private Note note;
 
-    public Data(Note note) {
+    public Data(Note note, DoubleBinding paneWidthProperty) {
         this.note = note;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/notesview/listCellItem.fxml"));
         fxmlLoader.setController(this);
@@ -35,21 +36,34 @@ public class Data {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        pane.prefWidthProperty().bind(paneWidthProperty);
+        nameLabel.maxWidthProperty().bind(paneWidthProperty.add(-70));
         updateView();
     }
 
-    public BorderPane getBox() {
+    public Pane getBox() {
         return pane;
     }
 
     public void updateView() {
         nameLabel.setText(note.getName());
         if (note instanceof DefaultNote) {
-            textLabel.setText(((DefaultNote) note).getText());
-            icon.setGlyphName("ASSIGNMENT");
+            String textPreview = extractFirstLine(((DefaultNote) note).getText());
+            textLabel.setText(textPreview);
+            icon.setGlyphName("INSERT_DRIVE_FILE");
         } else {
             copyButton.setVisible(false);
         }
+    }
+
+    private String extractFirstLine(String text) {
+        if (text == null)
+            return null;
+        int endIndex = text.indexOf('\n');
+        if (endIndex > 0)
+            return text.substring(0, endIndex);
+        else
+            return text;
     }
 
     public void handleCopy() {
