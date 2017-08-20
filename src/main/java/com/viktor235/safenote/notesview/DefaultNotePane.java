@@ -2,16 +2,14 @@ package com.viktor235.safenote.notesview;
 
 import com.viktor235.safenote.Utils;
 import com.viktor235.safenote.composite.DefaultNote;
+import com.viktor235.safenote.composite.Note;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 public class DefaultNotePane implements INotePane {
     @FXML
     private Pane pane;
-    @FXML
-    private TextField nameField;
     @FXML
     private TextArea textArea;
 
@@ -20,14 +18,11 @@ public class DefaultNotePane implements INotePane {
     public DefaultNotePane(DefaultNote defaultNote) {
         this.defaultNote = defaultNote;
         loadFxml();
+        setContent(defaultNote.getText());
     }
 
     protected void loadFxml() {
         Utils.loadFxml("/fxml/notesview/defaultNotePane.fxml", this);
-    }
-
-    public void setName(String name) {
-        nameField.setText(name);
     }
 
     public void setContent(String text) {
@@ -35,17 +30,8 @@ public class DefaultNotePane implements INotePane {
     }
 
     @Override
-    public String getTitle() {
-        if (defaultNote != null)
-            return defaultNote.getName();
-        else
-            return null;
-    }
-
-    @Override
-    public void setTitle(String title) {
-        if (defaultNote != null)
-            defaultNote.setName(title);
+    public Note getNote() {
+        return defaultNote;
     }
 
     @Override
@@ -53,12 +39,9 @@ public class DefaultNotePane implements INotePane {
         return pane;
     }
 
-    public DefaultNote getDefaultNote() {
-        return defaultNote;
-    }
-
-    public void updateNote() {
-        defaultNote.setName(nameField.getText());
+    @Override
+    public void updateNote(String name) {
+        defaultNote.setName(name);
         defaultNote.setText(textArea.getText());
     }
 }

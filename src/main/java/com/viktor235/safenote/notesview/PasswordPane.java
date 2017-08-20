@@ -32,21 +32,17 @@ public class PasswordPane implements INotePane {
     }
 
     @Override
-    public String getTitle() {
-        if (note != null)
-            return note.getName();
-        else
-            return null;
-    }
-
-    @Override
-    public void setTitle(String title) {
-        if (note != null)
-            note.setName(title);
+    public Note getNote() {
+        return note;
     }
 
     @Override
     public Pane getPane() {
         return pane;
+    }
+
+    @Override
+    public void updateNote(String name) {
+        note.setName(name);
     }
 }

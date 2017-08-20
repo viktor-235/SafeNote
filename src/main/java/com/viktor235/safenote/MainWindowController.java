@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -35,6 +36,8 @@ public class MainWindowController extends Stage implements Initializable {
     private ListView<Note> listView;
     @FXML
     private Pane notePane;
+    @FXML
+    private TextField noteTitle;
 
     private NotesHandler notesHandler;
     private CompositeNote currentParentNote;
@@ -113,15 +116,18 @@ public class MainWindowController extends Stage implements Initializable {
                 }
 
                 if (newValue instanceof DefaultNote) {
-                    DefaultNotePane pane = new DefaultNotePane((DefaultNote) newValue);
-                    currentNotePane.setTitle(newValue.getName());
-                    pane.setContent(((DefaultNote) newValue).getText());
-                    currentNotePane = pane;
+                    currentNotePane = new DefaultNotePane((DefaultNote) newValue);
                     notePane.getChildren().add(currentNotePane.getPane());
+                } else if (newValue instanceof CompositeNote) {
+                    currentNotePane = new CompositeNotePane((CompositeNote) newValue);
                 } else {
                     currentNotePane = new EmptyNotePane();
                     notePane.getChildren().add(currentNotePane.getPane());
                 }
+                if (currentNotePane.getNote() != null)
+                    noteTitle.setText(currentNotePane.getNote().getName());
+                else
+                    noteTitle.setText("");
             }
         });
     }
@@ -143,8 +149,8 @@ public class MainWindowController extends Stage implements Initializable {
     }
 
     public void handleSave(ActionEvent actionEvent) {
-        if (currentNotePane != null && currentNotePane instanceof DefaultNotePane) {
-            ((DefaultNotePane) currentNotePane).updateNote();
+        if (currentNotePane != null) {
+            currentNotePane.updateNote(noteTitle.getText());
             notesHandler.saveNotes();
             setListView(currentParentNote);
         }

@@ -11,3 +11,15 @@
 .button:pressed {
 	-fx-background-color: #00000030;
 }
+
+.discreet.text-field {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-font-size: 16;
+    -fx-padding: 0 0 0 6;
+    -fx-background-insets: 0;
+}
+
+.discreet.text-field:hover,
+.discreet.text-field:focused {
+    -fx-background-insets: 0, 1, 2;
+}
