@@ -21,10 +21,10 @@
         <VBox alignment="CENTER" spacing="10.0" GridPane.columnIndex="1"
               GridPane.rowIndex="1">
             <children>
-                <MaterialIconView fill="#00000055" glyphName="TOUCH_APP" size="96" strokeType="OUTSIDE"
+                <MaterialIconView fill="#00000050" glyphName="TOUCH_APP" size="96" strokeType="OUTSIDE"
                                   strokeWidth="0.0"/>
                 <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Please select note"
-                       textAlignment="CENTER" textFill="#00000055">
+                       textAlignment="CENTER" textFill="#00000060">
                     <font>
                         <Font size="18.0"/>
                     </font>

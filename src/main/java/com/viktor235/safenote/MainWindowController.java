@@ -56,6 +56,8 @@ public class MainWindowController extends Stage implements Initializable {
         setTitle("Safe Note");
         setWidth(600);
         setHeight(400);
+        setMinWidth(400);
+        setMinHeight(300);
         try {
             setScene(new Scene(fxmlLoader.load()));
         } catch (IOException e) {
@@ -120,6 +122,7 @@ public class MainWindowController extends Stage implements Initializable {
                     notePane.getChildren().add(currentNotePane.getPane());
                 } else if (newValue instanceof CompositeNote) {
                     currentNotePane = new CompositeNotePane((CompositeNote) newValue);
+                    notePane.getChildren().add(currentNotePane.getPane());
                 } else {
                     currentNotePane = new EmptyNotePane();
                     notePane.getChildren().add(currentNotePane.getPane());
