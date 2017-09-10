@@ -14,11 +14,8 @@ public class EncriptedDefaultNotePane extends DefaultNotePane {
     @FXML
     private PasswordField passwordField;
 
-    private Thingable delegate;
-
-    public EncriptedDefaultNotePane(DefaultNote defaultNote, Thingable delegate) {
-        super(defaultNote);
-        this.delegate = delegate;
+    public EncriptedDefaultNotePane(DefaultNote defaultNote, Thingable saveEvent) {
+        super(defaultNote, saveEvent);
     }
 
     @Override
@@ -27,7 +24,7 @@ public class EncriptedDefaultNotePane extends DefaultNotePane {
     }
 
     public void handleOk(ActionEvent actionEvent) {
-        delegate.thing();
+//        delegate.thing();
     }
 
     public String getPassword() {

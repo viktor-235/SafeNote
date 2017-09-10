@@ -3,6 +3,9 @@ package com.viktor235.safenote.notesview;
 import com.viktor235.safenote.Utils;
 import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
+import com.viktor235.safenote.delegator.Thingable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
@@ -15,10 +18,26 @@ public class DefaultNotePane implements INotePane {
 
     protected DefaultNote defaultNote;
 
-    public DefaultNotePane(DefaultNote defaultNote) {
+    public DefaultNotePane(DefaultNote defaultNote, Thingable saveEvent) {
         this.defaultNote = defaultNote;
         loadFxml();
         setContent(defaultNote.getText());
+
+        final BooleanProperty textChanged = new SimpleBooleanProperty(false);
+
+        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.equals(defaultNote.getText())) {
+                defaultNote.setText(newValue);
+                textChanged.setValue(true);
+            }
+        });
+
+        textArea.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && textChanged.get()) {
+                saveEvent.thing();
+                textChanged.setValue(false);
+            }
+        });
     }
 
     protected void loadFxml() {

@@ -5,6 +5,8 @@ import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
 import com.viktor235.safenote.delegator.Thingable;
 import com.viktor235.safenote.notesview.*;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,6 +46,8 @@ public class MainWindowController extends Stage implements Initializable {
     private Note currentNote;
     private INotePane currentNotePane;
 
+    private Thingable saveDelegate;
+
     public MainWindowController(NotesHandler notesHandler) {
         this.notesHandler = notesHandler;
 
@@ -63,6 +67,24 @@ public class MainWindowController extends Stage implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        final BooleanProperty titleChanged = new SimpleBooleanProperty(false); // Variable to store the title field changed state
+
+        noteTitle.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (currentNotePane != null && !newValue.equals(currentNotePane.getNote().getName())) {
+                currentNotePane.getNote().setName(newValue);
+                titleChanged.setValue(true);
+            }
+        });
+
+        noteTitle.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && titleChanged.get()) {
+                handleSave(null);
+                titleChanged.setValue(false);
+            }
+        });
+
+        saveDelegate = () -> handleSave(null);
     }
 
     @Override
@@ -118,7 +140,7 @@ public class MainWindowController extends Stage implements Initializable {
                 }
 
                 if (newValue instanceof DefaultNote) {
-                    currentNotePane = new DefaultNotePane((DefaultNote) newValue);
+                    currentNotePane = new DefaultNotePane((DefaultNote) newValue, saveDelegate);
                     notePane.getChildren().add(currentNotePane.getPane());
                 } else if (newValue instanceof CompositeNote) {
                     currentNotePane = new CompositeNotePane((CompositeNote) newValue);
