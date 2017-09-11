@@ -42,6 +42,9 @@ public class Main extends Application {
                     } catch (EncryptionOperationNotPossibleException e) {
                         JCommander.getConsole().println("Incorrect password!");
                         System.exit(0);
+                    } catch (IllegalArgumentException e) {
+                        JCommander.getConsole().println("Password cannot be empty");
+                        System.exit(0);
                     }
                 } else
                     noteContent = (foundDefaultNote).getText();
@@ -49,8 +52,11 @@ public class Main extends Application {
                 if (!appArgs.isToClipboard() || !foundDefaultNote.isEncrypted())
                     JCommander.getConsole().println(noteContent);
 
-                if (appArgs.isToClipboard())
+                if (appArgs.isToClipboard()) {
                     Utils.copyToClipboard(noteContent);
+                    JCommander.getConsole().println("Note copied to clipboard");
+                    return;
+                }
             }
             System.exit(0);
         }
