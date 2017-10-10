@@ -3,6 +3,7 @@ package com.viktor235.safenote;
 import com.viktor235.safenote.composite.CompositeNote;
 import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
+import com.viktor235.safenote.delegator.PasswordChecker;
 import com.viktor235.safenote.delegator.Thingable;
 import com.viktor235.safenote.notesview.*;
 import javafx.beans.property.BooleanProperty;
@@ -127,10 +128,11 @@ public class MainWindowController extends Stage implements Initializable {
                 if (newValue == null)
                     return;
                 if (newValue.isEncrypted()) {
-                    Thingable thing = new Thingable() {
-                        @Override
-                        public void thing() {
-
+                    PasswordChecker thing = password -> {
+                        if (newValue instanceof DefaultNote) {
+                            DefaultNote decryptedNote = NotesHandler.decryptNote((DefaultNote) newValue, password);
+                            currentNotePane = new EncriptedDefaultNotePane(decryptedNote, saveDelegate);
+                            notePane.getChildren().add(currentNotePane.getPane());
                         }
                     };
 

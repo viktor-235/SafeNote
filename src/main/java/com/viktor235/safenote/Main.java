@@ -20,6 +20,10 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
+//        DefaultNote note = new DefaultNote("Name");
+//        note.setText("Secret!");
+//        System.out.println(NotesHandler.encryptNote(note, "123").getText());
+
         AppArgs appArgs = new AppArgs();
         JCommander jCommander = new JCommander(appArgs, args);
         jCommander.setProgramName("SafeNote");

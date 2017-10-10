@@ -2,7 +2,7 @@ package com.viktor235.safenote.notesview;
 
 import com.viktor235.safenote.Utils;
 import com.viktor235.safenote.composite.Note;
-import com.viktor235.safenote.delegator.Thingable;
+import com.viktor235.safenote.delegator.PasswordChecker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -15,16 +15,16 @@ public class PasswordPane implements INotePane {
     private PasswordField passwordField;
 
     private Note note;
-    private Thingable delegate;
+    private PasswordChecker delegate;
 
-    public PasswordPane(Note note, Thingable delegate) {
+    public PasswordPane(Note note, PasswordChecker delegate) {
         this.note = note;
         this.delegate = delegate;
         Utils.loadFxml("/fxml/notesview/passwordPane.fxml", this);
     }
 
     public void handleOk(ActionEvent actionEvent) {
-        delegate.thing();
+        delegate.thing(getPassword());
     }
 
     public String getPassword() {

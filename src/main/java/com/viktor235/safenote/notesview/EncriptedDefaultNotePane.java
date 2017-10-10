@@ -1,6 +1,5 @@
 package com.viktor235.safenote.notesview;
 
-import com.viktor235.safenote.Utils;
 import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.delegator.Thingable;
 import javafx.event.ActionEvent;
@@ -18,10 +17,10 @@ public class EncriptedDefaultNotePane extends DefaultNotePane {
         super(defaultNote, saveEvent);
     }
 
-    @Override
-    protected void loadFxml() {
-        Utils.loadFxml("/fxml/notesview/passwordPane.fxml", this);
-    }
+//    @Override
+//    protected void loadFxml() {
+//        Utils.loadFxml("/fxml/notesview/passwordPane.fxml", this);
+//    }
 
     public void handleOk(ActionEvent actionEvent) {
 //        delegate.thing();
