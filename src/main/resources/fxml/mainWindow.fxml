@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <GridPane fx:id="gridPane" hgap="10.0" style="-fx-background-color: white;" stylesheets="@style.css" vgap="10.0"
-          xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+          xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0"/>
@@ -18,26 +18,15 @@
     <children>
         <AnchorPane fx:id="notePane" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1"
                     GridPane.valignment="CENTER"/>
-        <ListView fx:id="listView" maxHeight="1.7976931348623157E308" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
+        <TreeView fx:id="notesView" maxHeight="1.7976931348623157E308" showRoot="false" GridPane.hgrow="ALWAYS"
+                  GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets/>
             </GridPane.margin>
-        </ListView>
+        </TreeView>
         <BorderPane>
             <left>
-                <HBox layoutX="25.0" layoutY="25.0" spacing="10.0">
-                    <children>
-                        <Button mnemonicParsing="false" onAction="#handleBack">
-                            <graphic>
-                                <MaterialIconView glyphName="ARROW_BACK" size="30" strokeType="OUTSIDE"
-                                                  strokeWidth="0.0"/>
-                            </graphic>
-                            <tooltip>
-                                <Tooltip text="Back"/>
-                            </tooltip>
-                        </Button>
-                    </children>
-                </HBox>
+                <HBox layoutX="25.0" layoutY="25.0" spacing="10.0"/>
             </left>
             <right>
                 <HBox layoutX="25.0" layoutY="25.0" spacing="10.0">

@@ -4,7 +4,7 @@ import com.viktor235.safenote.Utils;
 import com.viktor235.safenote.composite.DefaultNote;
 import com.viktor235.safenote.composite.Note;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
-import javafx.beans.binding.DoubleBinding;
+import javafx.beans.binding.DoubleExpression;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,7 +24,7 @@ public class Data {
 
     private Note note;
 
-    public Data(Note note, DoubleBinding paneWidthProperty) {
+    public Data(Note note, DoubleExpression paneWidthProperty) {
         this.note = note;
         Utils.loadFxml("/fxml/notesview/listCellItem.fxml", this);
         pane.prefWidthProperty().bind(paneWidthProperty);
